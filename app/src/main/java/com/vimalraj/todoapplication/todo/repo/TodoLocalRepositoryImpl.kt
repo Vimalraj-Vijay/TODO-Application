@@ -16,8 +16,8 @@ class TodoLocalRepositoryImpl @Inject constructor(
         return todoDatabase.todoDao().getAllTodoModelAndEntity()
     }
 
-    override suspend fun deleteAllTask() {
-        todoDatabase.todoDao().deleteAll()
+    override suspend fun isTaskCompleted(isTaskCompleted: Boolean, id: Int, lastModified: String) {
+        todoDatabase.todoDao().isTaskCompleted(isTaskCompleted = isTaskCompleted, id = id, lastModified = lastModified)
     }
 
     override suspend fun deleteTaskUsingId(id: Int) {

@@ -40,7 +40,9 @@ fun TaskItem(taskList: List<TodoModelAndEntity>?, todoViewModel: TodoViewModel) 
                         containerColor = backgroundColor(item.priority),
                     ),
                     content = {
-                        TaskListItem(todo = item)
+                        TaskListItem(todo = item, isTaskCompletedClick = {
+                            todoViewModel.updateTaskStatus(it, taskList[index].id)
+                        })
                     })
 
             }
