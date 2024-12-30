@@ -44,7 +44,9 @@ class TodoViewModel @Inject constructor(
 
     fun openAndCloseModelSheet(isOpen: Boolean) {
         mutableViewState.value = mutableViewState.value?.copy(
-            isBottomSheetOpen = isOpen
+            isBottomSheetOpen = isOpen,
+            isUpdateTask = false,
+            selectedIndex = -1,
         )
     }
 
