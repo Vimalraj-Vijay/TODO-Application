@@ -16,8 +16,8 @@ class TodoUseCaseImpl @Inject constructor(
         return todoLocalRepository.getAllTodoModelAndEntity()
     }
 
-    override suspend fun deleteAllTask() {
-        todoLocalRepository.deleteAllTask()
+    override suspend fun isTaskCompleted(isTaskCompleted: Boolean, id: Int, lastModified: String) {
+        todoLocalRepository.isTaskCompleted(isTaskCompleted = isTaskCompleted, id = id, lastModified = lastModified)
     }
 
     override suspend fun deleteTaskUsingId(id: Int) {

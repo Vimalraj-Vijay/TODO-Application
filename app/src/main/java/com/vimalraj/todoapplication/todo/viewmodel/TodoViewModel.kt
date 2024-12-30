@@ -23,9 +23,20 @@ class TodoViewModel @Inject constructor(
     fun fetchAllTask() {
         viewModelScope.launch(Dispatchers.IO) {
             val getAllTask = async { todoUseCase.getAllTodoModelAndEntity() }.await()
+            val unCompletedTodoList =
+                getAllTask.filter { todoModelAndEntity: TodoModelAndEntity -> todoModelAndEntity.isTaskCompleted.not() }
+                    .reversed()
+            val completedTodoList =
+                getAllTask.filter { todoModelAndEntity: TodoModelAndEntity -> todoModelAndEntity.isTaskCompleted }
+            val finalTodoList = unCompletedTodoList + completedTodoList
+
+            //println("getAllTask --> ${getAllTask.reversed()}")
+            //println("unCompletedTodoList --> ${unCompletedTodoList.reversed()}")
+            //println("completedTodoList --> $completedTodoList")
+            //println("finalTodoList --> $finalTodoList")
             mutableViewState.postValue(
                 TodoViewState(
-                    todoList = getAllTask.reversed()
+                    todoList = finalTodoList
                 )
             )
         }
@@ -44,6 +55,22 @@ class TodoViewModel @Inject constructor(
             selectedIndex = index
         )
 
+    }
+
+    fun updateTaskStatus(isTaskCompleted: Boolean, id: Int) {
+        val date = getCurrentDateTime()
+        val dateInString = date.toString(DD_MM_YYYY_T_FORMAT)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            async {
+                todoUseCase.isTaskCompleted(
+                    isTaskCompleted = isTaskCompleted,
+                    id = id,
+                    lastModified = dateInString
+                )
+            }.await()
+            fetchAllTask()
+        }
     }
 
     fun insertOrUpdateTask(index: Int = -1, task: String, priority: String) {

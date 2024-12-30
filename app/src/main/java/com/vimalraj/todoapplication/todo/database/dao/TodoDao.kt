@@ -15,8 +15,8 @@ interface TodoDao {
     @Query("SELECT * FROM TodoModelAndEntity")
     suspend fun getAllTodoModelAndEntity(): List<TodoModelAndEntity>
 
-    @Query("DELETE FROM TodoModelAndEntity")
-    suspend fun deleteAll()
+    @Query("UPDATE TodoModelAndEntity SET isTaskCompleted = :isTaskCompleted, createdAt= :lastModified WHERE id= :id")
+    suspend fun isTaskCompleted(isTaskCompleted: Boolean, id: Int, lastModified: String)
 
     @Query("DELETE FROM TodoModelAndEntity WHERE id = :id")
     suspend fun deleteTaskUsingId(id: Int)

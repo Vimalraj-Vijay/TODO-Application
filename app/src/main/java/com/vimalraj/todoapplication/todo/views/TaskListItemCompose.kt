@@ -8,10 +8,6 @@ import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -27,8 +23,8 @@ import com.vimalraj.todoapplication.todo.database.entity.TodoModelAndEntity
 
 
 @Composable
-fun TaskListItem(todo: TodoModelAndEntity) {
-    var isChecked by remember { mutableStateOf(false) }
+fun TaskListItem(todo: TodoModelAndEntity, isTaskCompletedClick: (isTicked: Boolean) -> Unit) {
+    var isChecked = todo.isTaskCompleted
 
     Column(modifier = Modifier.padding(8.dp)) {
         Row {
@@ -38,6 +34,7 @@ fun TaskListItem(todo: TodoModelAndEntity) {
                     checked = isChecked,
                     onCheckedChange = {
                         isChecked = it
+                        isTaskCompletedClick.invoke(isChecked)
                     },
                 )
             }
@@ -58,13 +55,10 @@ fun TaskListItem(todo: TodoModelAndEntity) {
                 )
             )
         }
-        if (!isChecked) {
-            Text(
-                modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
-                text = stringResource(R.string.last_modified_on, todo.createdAt),
-                textAlign = TextAlign.Start
-
-            )
-        }
+        Text(
+            modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
+            text = stringResource(R.string.last_modified_on, todo.createdAt),
+            textAlign = TextAlign.Start
+        )
     }
 }
