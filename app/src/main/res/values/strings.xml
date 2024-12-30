@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TODO Application</string>
+    <string name="no_task_found">No task found.\n Tap on the + Icon to add tasks</string>
+    <string name="todo">TODO</string>
+    <string name="field_should_not_be_empty">Field should not be empty</string>
+    <string name="task_priority">Task Priority</string>
+    <string name="save_task">Save task</string>
+    <string name="enter_task">Enter Task</string>
+    <string name="update_task">Update task</string>
+    <string name="task">Task: %1$s</string>
+    <string name="last_modified_on">Last Modified on: %1$s</string>
+    <string name="delete_task">Delete Task</string>
+</resources>
