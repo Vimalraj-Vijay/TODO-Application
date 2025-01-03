@@ -33,7 +33,7 @@ fun TaskItem(taskList: List<TodoModelAndEntity>?, todoViewModel: TodoViewModel) 
                     .fillMaxWidth()
                     .padding(8.dp),
                     onClick = {
-                        todoViewModel.updateTask(index)
+                        todoViewModel.openBottomSheet(isUpdate = true, index)
                     },
                     shape = RoundedCornerShape(8.dp),
                     colors = CardDefaults.cardColors(
