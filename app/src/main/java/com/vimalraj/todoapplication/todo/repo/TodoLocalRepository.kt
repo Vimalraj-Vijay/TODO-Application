@@ -11,4 +11,6 @@ interface TodoLocalRepository {
     suspend fun isTaskCompleted(isTaskCompleted: Boolean, id: Int, lastModified: String)
 
     suspend fun deleteTaskUsingId(id: Int)
+
+    suspend fun deleteAll()
 }

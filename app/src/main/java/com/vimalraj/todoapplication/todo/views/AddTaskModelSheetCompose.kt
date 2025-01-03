@@ -36,7 +36,7 @@ fun AddTaskModalSheet(
     todoViewState: TodoViewState?,
     todoViewModel: TodoViewModel
 ) {
-    if (todoViewState?.isBottomSheetOpen == true) {
+    if (todoViewState != null) {
         val showBottomSheet by remember { mutableStateOf(todoViewState.isBottomSheetOpen) }
         val isUpdateTask by remember { mutableStateOf(todoViewState.isUpdateTask) }
         val index by remember { mutableIntStateOf(todoViewState.selectedIndex) }

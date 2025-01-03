@@ -17,11 +17,19 @@ class TodoLocalRepositoryImpl @Inject constructor(
     }
 
     override suspend fun isTaskCompleted(isTaskCompleted: Boolean, id: Int, lastModified: String) {
-        todoDatabase.todoDao().isTaskCompleted(isTaskCompleted = isTaskCompleted, id = id, lastModified = lastModified)
+        todoDatabase.todoDao().isTaskCompleted(
+            isTaskCompleted = isTaskCompleted,
+            id = id,
+            lastModified = lastModified
+        )
     }
 
     override suspend fun deleteTaskUsingId(id: Int) {
         todoDatabase.todoDao().deleteTaskUsingId(id)
+    }
+
+    override suspend fun deleteAll() {
+        todoDatabase.todoDao().deleteAll()
     }
 
 }

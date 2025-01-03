@@ -12,4 +12,6 @@ interface TodoUseCase {
 
     suspend fun deleteTaskUsingId(id: Int)
 
+    suspend fun deleteAll()
+
 }

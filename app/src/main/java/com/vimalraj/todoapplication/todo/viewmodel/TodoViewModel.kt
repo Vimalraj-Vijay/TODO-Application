@@ -1,7 +1,7 @@
 package com.vimalraj.todoapplication.todo.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.vimalraj.todoapplication.core.BaseEvents
+import com.vimalraj.todoapplication.core.HandleEvent
 import com.vimalraj.todoapplication.core.TypeBasedViewModel
 import com.vimalraj.todoapplication.core.getCurrentDateTime
 import com.vimalraj.todoapplication.core.toString
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TodoViewModel @Inject constructor(
     private val todoUseCase: TodoUseCase
-) : TypeBasedViewModel<TodoViewState, BaseEvents>() {
+) : TypeBasedViewModel<TodoViewState, TodoViewEvents>() {
 
     fun fetchAllTask() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -48,6 +48,10 @@ class TodoViewModel @Inject constructor(
             isUpdateTask = false,
             selectedIndex = -1,
         )
+        if (isOpen) {
+            mutableViewEvents.value =
+                HandleEvent(eventContent = TodoViewEvents.LaunchAddTaskBottomSheet)
+        }
     }
 
     fun updateTask(index: Int) {
@@ -108,5 +112,16 @@ class TodoViewModel @Inject constructor(
             async { todoUseCase.deleteTaskUsingId(id = id) }.await()
             fetchAllTask()
         }
+    }
+
+    fun deleteAllTask() {
+        viewModelScope.launch(Dispatchers.IO) {
+            async { todoUseCase.deleteAll() }.await()
+            fetchAllTask()
+        }
+    }
+
+    fun showDeleteAllAlert() {
+        mutableViewEvents.value = HandleEvent(eventContent = TodoViewEvents.LaunchDeleteAllTask)
     }
 }
