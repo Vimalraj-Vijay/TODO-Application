@@ -17,11 +17,19 @@ class TodoUseCaseImpl @Inject constructor(
     }
 
     override suspend fun isTaskCompleted(isTaskCompleted: Boolean, id: Int, lastModified: String) {
-        todoLocalRepository.isTaskCompleted(isTaskCompleted = isTaskCompleted, id = id, lastModified = lastModified)
+        todoLocalRepository.isTaskCompleted(
+            isTaskCompleted = isTaskCompleted,
+            id = id,
+            lastModified = lastModified
+        )
     }
 
     override suspend fun deleteTaskUsingId(id: Int) {
         todoLocalRepository.deleteTaskUsingId(id)
+    }
+
+    override suspend fun deleteAll() {
+        todoLocalRepository.deleteAll()
     }
 
 }

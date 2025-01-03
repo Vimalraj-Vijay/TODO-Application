@@ -10,4 +10,8 @@
     <string name="task">Task: %1$s</string>
     <string name="last_modified_on">Last Modified on: %1$s</string>
     <string name="delete_task">Delete Task</string>
+    <string name="confirm">Confirm</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="are_you_sure_to_delete_all">Are you sure to delete all ?</string>
+    <string name="delete_all_desc">All the tasks will be deleted once you click confirm. Click Confirm to delete or Dismiss.</string>
 </resources>

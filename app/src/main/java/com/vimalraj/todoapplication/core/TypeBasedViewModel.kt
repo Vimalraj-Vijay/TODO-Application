@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 abstract class TypeBasedViewModel<VIEW_STATE : BaseViewState, VIEW_EVENTS : BaseEvents> :
     ViewModel() {
     protected val mutableViewState: MutableLiveData<VIEW_STATE> = MutableLiveData()
-    protected val mutableViewEvents: MutableLiveData<VIEW_EVENTS> = MutableLiveData()
+    protected val mutableViewEvents: MutableLiveData<HandleEvent<VIEW_EVENTS>> = MutableLiveData()
 
     val viewState: LiveData<VIEW_STATE> = mutableViewState
-    val viewEvents: LiveData<VIEW_EVENTS> = mutableViewEvents
+    val viewEvents: LiveData<HandleEvent<VIEW_EVENTS>> = mutableViewEvents
 }
