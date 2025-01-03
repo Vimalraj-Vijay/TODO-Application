@@ -2,6 +2,7 @@ TODO Application
 
 Overview
 This project is an Single Page Android TODO application built using Jetpack Compose for the UI and Clean Architecture principles for structuring the codebase. The application allows users to manage their tasks efficiently with features such as adding, updating, deleting, and viewing tasks.
+
 Features
 
 Add new tasks
