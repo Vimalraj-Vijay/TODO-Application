@@ -6,7 +6,6 @@ import com.vimalraj.todoapplication.todo.database.entity.TodoModelAndEntity
 
 data class TodoViewState(
     val todoList: List<TodoModelAndEntity> = emptyList(),
-    val isBottomSheetOpen: Boolean = false,
     val isUpdateTask: Boolean = false,
     val selectedIndex: Int = -1,
     val dropDownList: List<String> = listOf(

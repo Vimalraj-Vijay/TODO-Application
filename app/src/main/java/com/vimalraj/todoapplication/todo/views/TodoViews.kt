@@ -35,11 +35,14 @@ import com.vimalraj.todoapplication.R
 import com.vimalraj.todoapplication.core.views.GenericAlertDialog
 import com.vimalraj.todoapplication.todo.viewmodel.TodoViewEvents
 import com.vimalraj.todoapplication.todo.viewmodel.TodoViewModel
+import com.vimalraj.todoapplication.todo.viewmodel.TodoViewState
 import com.vimalraj.todoapplication.ui.theme.TODOApplicationTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TodoViews(todoViewModel: TodoViewModel) {
+    val todoViewState by todoViewModel.viewState.observeAsState()
+
     TODOApplicationTheme {
         Scaffold(
             topBar = {
@@ -51,16 +54,23 @@ fun TodoViews(todoViewModel: TodoViewModel) {
                 }, actions = {
                     // RowScope here, so these icons will be placed horizontally
                     IconButton(onClick = {
-                        todoViewModel.showDeleteAllAlert()
+                        if (todoViewState?.todoList.isNullOrEmpty().not()) {
+                            todoViewModel.showDeleteAllAlert()
+                        }
                     }) {
                         Icon(
                             Icons.Filled.Delete,
                             contentDescription = null,
-                            tint = colorResource(R.color.black)
+                            tint = if (todoViewState?.todoList.isNullOrEmpty().not()) {
+                                colorResource(R.color.black)
+                            } else {
+                                colorResource(R.color.black).copy(alpha = 0.4f)
+                            }
+
                         )
                     }
                     IconButton(onClick = {
-                        todoViewModel.openAndCloseModelSheet(isOpen = true)
+                        todoViewModel.openBottomSheet(false, -1)
                     }) {
                         Icon(
                             Icons.Filled.Add,
@@ -72,7 +82,7 @@ fun TodoViews(todoViewModel: TodoViewModel) {
             },
         ) { innerPadding ->
             Column(modifier = Modifier.padding(innerPadding)) {
-                ScrollContent(todoViewModel)
+                ScrollContent(todoViewModel, todoViewState)
             }
         }
     }
@@ -80,13 +90,13 @@ fun TodoViews(todoViewModel: TodoViewModel) {
 
 
 @Composable
-fun ScrollContent(todoViewModel: TodoViewModel) {
+fun ScrollContent(todoViewModel: TodoViewModel, todoViewState: TodoViewState?) {
     LaunchedEffect(Unit) {
         todoViewModel.fetchAllTask()
     }
-    val todoViewState by todoViewModel.viewState.observeAsState()
     val todoViewEvents = todoViewModel.viewEvents.observeAsState()
     var showDialog by remember { mutableStateOf(false) }
+    var showBottomSheet by remember { mutableStateOf(false) }
 
 
     when (todoViewEvents.value?.getEventHandling()) {
@@ -95,7 +105,7 @@ fun ScrollContent(todoViewModel: TodoViewModel) {
         }
 
         TodoViewEvents.LaunchAddTaskBottomSheet -> {
-            AddTaskModalSheet(todoViewState, todoViewModel)
+            showBottomSheet = true
         }
 
         else -> {
@@ -119,6 +129,14 @@ fun ScrollContent(todoViewModel: TodoViewModel) {
             showDialog = false
         }, todoViewModel = todoViewModel)
     }
+
+    ShowBottomSheetDialog(
+        showBottomSheet = showBottomSheet,
+        todoViewState = todoViewState,
+        todoViewModel = todoViewModel,
+        onDismissed = {
+            showBottomSheet = false
+        })
 }
 
 @Composable
@@ -140,5 +158,19 @@ fun ShowDeleteAllTaskDialog(
             },
             icon = ImageVector.vectorResource(R.drawable.ic_warning_24)
         )
+    }
+}
+
+@Composable
+fun ShowBottomSheetDialog(
+    showBottomSheet: Boolean,
+    todoViewState: TodoViewState?,
+    todoViewModel: TodoViewModel,
+    onDismissed: () -> Unit,
+) {
+    if (showBottomSheet) {
+        AddTaskModalSheet(todoViewState, todoViewModel, onDismissed = {
+            onDismissed.invoke()
+        })
     }
 }

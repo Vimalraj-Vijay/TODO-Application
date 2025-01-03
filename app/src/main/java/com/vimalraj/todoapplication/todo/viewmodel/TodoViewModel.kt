@@ -42,21 +42,16 @@ class TodoViewModel @Inject constructor(
         }
     }
 
-    fun openAndCloseModelSheet(isOpen: Boolean) {
-        mutableViewState.value = mutableViewState.value?.copy(
-            isBottomSheetOpen = isOpen,
-            isUpdateTask = false,
-            selectedIndex = -1,
-        )
-        if (isOpen) {
-            mutableViewEvents.value =
-                HandleEvent(eventContent = TodoViewEvents.LaunchAddTaskBottomSheet)
+    fun openBottomSheet(isUpdate: Boolean, index: Int) {
+        if (isUpdate) {
+            updateTask(index)
         }
+        mutableViewEvents.value =
+            HandleEvent(eventContent = TodoViewEvents.LaunchAddTaskBottomSheet)
     }
 
     fun updateTask(index: Int) {
         mutableViewState.value = mutableViewState.value?.copy(
-            isBottomSheetOpen = true,
             isUpdateTask = true,
             selectedIndex = index
         )
@@ -96,8 +91,6 @@ class TodoViewModel @Inject constructor(
         }
 
         insertTodo(todoModelAndEntity = todoModelAndEntity)
-        openAndCloseModelSheet(isOpen = false)
-
     }
 
     private fun insertTodo(todoModelAndEntity: TodoModelAndEntity) {

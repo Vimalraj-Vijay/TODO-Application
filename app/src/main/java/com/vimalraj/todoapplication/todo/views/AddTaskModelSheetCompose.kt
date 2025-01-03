@@ -34,10 +34,10 @@ import com.vimalraj.todoapplication.todo.viewmodel.TodoViewState
 @Composable
 fun AddTaskModalSheet(
     todoViewState: TodoViewState?,
-    todoViewModel: TodoViewModel
+    todoViewModel: TodoViewModel,
+    onDismissed: () -> Unit,
 ) {
     if (todoViewState != null) {
-        val showBottomSheet by remember { mutableStateOf(todoViewState.isBottomSheetOpen) }
         val isUpdateTask by remember { mutableStateOf(todoViewState.isUpdateTask) }
         val index by remember { mutableIntStateOf(todoViewState.selectedIndex) }
 
@@ -62,122 +62,123 @@ fun AddTaskModalSheet(
             }
             mutableStateOf(value)
         }
-        if (showBottomSheet) {
-            ModalBottomSheet(
-                onDismissRequest = {
-                    todoViewModel.openAndCloseModelSheet(isOpen = false)
-                }, sheetState = sheetState
-            ) {
-                Column(modifier = Modifier.fillMaxWidth()) {
-                    OutlinedTextField(modifier = Modifier
+        ModalBottomSheet(
+            onDismissRequest = {
+                onDismissed.invoke()
+            }, sheetState = sheetState
+        ) {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                OutlinedTextField(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp),
+                    value = text,
+                    onValueChange = {
+                        text = it
+                        if (error && text.isNotEmpty()) {
+                            error = false
+                        }
+                    },
+                    label = { Text(stringResource(R.string.enter_task)) },
+                    isError = error,
+                    supportingText = {
+                        if (error) {
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = stringResource(R.string.field_should_not_be_empty),
+                                color = MaterialTheme.colorScheme.error
+                            )
+                        }
+                    })
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    ExposedDropdownMenuBox(modifier = Modifier
                         .fillMaxWidth()
+                        .padding(top = 8.dp)
                         .padding(horizontal = 8.dp),
-                        value = text,
-                        onValueChange = {
-                            text = it
-                            if (error && text.isNotEmpty()) {
-                                error = false
-                            }
-                        },
-                        label = { Text(stringResource(R.string.enter_task)) },
-                        isError = error,
-                        supportingText = {
-                            if (error) {
-                                Text(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    text = stringResource(R.string.field_should_not_be_empty),
-                                    color = MaterialTheme.colorScheme.error
+                        expanded = expanded,
+                        onExpandedChange = { expanded = !expanded }) {
+                        OutlinedTextField(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .menuAnchor(MenuAnchorType.PrimaryNotEditable),
+                            value = mSelectedText,
+                            onValueChange = {},
+                            readOnly = true,
+                            label = { Text(text = stringResource(R.string.task_priority)) },
+                            trailingIcon = {
+                                ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                            },
+                        )
+
+                        ExposedDropdownMenu(expanded = expanded, onDismissRequest = {
+                            expanded = false
+                        }) {
+                            todoViewState.dropDownList.forEachIndexed { index, text ->
+                                DropdownMenuItem(
+                                    text = { Text(text = text) },
+                                    onClick = {
+                                        mSelectedText =
+                                            todoViewState.dropDownList[index]
+                                        expanded = false
+                                    },
+                                    contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
                                 )
                             }
-                        })
-                    Box(modifier = Modifier.fillMaxWidth()) {
-                        ExposedDropdownMenuBox(modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 8.dp)
-                            .padding(horizontal = 8.dp),
-                            expanded = expanded,
-                            onExpandedChange = { expanded = !expanded }) {
-                            OutlinedTextField(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .menuAnchor(MenuAnchorType.PrimaryNotEditable),
-                                value = mSelectedText,
-                                onValueChange = {},
-                                readOnly = true,
-                                label = { Text(text = stringResource(R.string.task_priority)) },
-                                trailingIcon = {
-                                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-                                },
-                            )
-
-                            ExposedDropdownMenu(expanded = expanded, onDismissRequest = {
-                                expanded = false
-                            }) {
-                                todoViewState.dropDownList.forEachIndexed { index, text ->
-                                    DropdownMenuItem(
-                                        text = { Text(text = text) },
-                                        onClick = {
-                                            mSelectedText =
-                                                todoViewState.dropDownList.get(index)
-                                            expanded = false
-                                        },
-                                        contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
-                                    )
-                                }
-                            }
-
-
                         }
+
+
                     }
+                }
+                Button(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(all = 8.dp)
+                    .padding(top = 8.dp), onClick = {
+                    if (text.isEmpty()) {
+                        error = true
+                    } else {
+                        if (isUpdateTask) {
+                            todoViewModel.insertOrUpdateTask(
+                                index = index,
+                                task = text,
+                                priority = mSelectedText
+                            )
+                        } else {
+                            todoViewModel.insertOrUpdateTask(
+                                task = text,
+                                priority = mSelectedText
+                            )
+                        }
+                        onDismissed.invoke()
+                    }
+                }) {
+                    Text(
+                        modifier = Modifier.padding(all = 4.dp),
+                        text = if (isUpdateTask) {
+                            stringResource(R.string.update_task)
+                        } else {
+                            stringResource(R.string.save_task)
+                        }
+                    )
+                }
+                if (isUpdateTask) {
                     Button(modifier = Modifier
                         .fillMaxWidth()
-                        .padding(all = 8.dp)
-                        .padding(top = 8.dp), onClick = {
-                        if (text.isEmpty()) {
-                            error = true
-                        } else {
-                            if (isUpdateTask) {
-                                todoViewModel.insertOrUpdateTask(
-                                    index = index,
-                                    task = text,
-                                    priority = mSelectedText
-                                )
-                            } else {
-                                todoViewModel.insertOrUpdateTask(
-                                    task = text,
-                                    priority = mSelectedText
-                                )
-                            }
-                        }
-                    }) {
+                        .padding(all = 8.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            contentColor = colorResource(R.color.white),
+                            containerColor = colorResource(R.color.red30)
+                        ),
+                        onClick = {
+                            todoViewModel.deleteTask(todoViewState.todoList[index].id)
+                            onDismissed.invoke()
+                        }) {
                         Text(
                             modifier = Modifier.padding(all = 4.dp),
-                            text = if (isUpdateTask) {
-                                stringResource(R.string.update_task)
-                            } else {
-                                stringResource(R.string.save_task)
-                            }
+                            text = stringResource(R.string.delete_task)
                         )
-                    }
-                    if (isUpdateTask) {
-                        Button(modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(all = 8.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                contentColor = colorResource(R.color.white),
-                                containerColor = colorResource(R.color.red30)
-                            ),
-                            onClick = {
-                                todoViewModel.deleteTask(todoViewState.todoList[index].id)
-                            }) {
-                            Text(
-                                modifier = Modifier.padding(all = 4.dp),
-                                text = stringResource(R.string.delete_task)
-                            )
-                        }
                     }
                 }
             }
         }
+
     }
 }
