@@ -1,6 +1,6 @@
 package com.vimalraj.todoapplication.core
 
-open class HandleEvent<out SEALED_EVENT_CLASS>(private val eventContent: SEALED_EVENT_CLASS) {
+open class HandleEvent<out SEALED_EVENT_CLASS>(private val eventContent: SEALED_EVENT_CLASS? = null) {
 
     var isAlreadyEventHandled = false
         private set
@@ -14,5 +14,5 @@ open class HandleEvent<out SEALED_EVENT_CLASS>(private val eventContent: SEALED_
         }
     }
 
-    fun getContent(): SEALED_EVENT_CLASS = eventContent
+    fun getContent(): SEALED_EVENT_CLASS? = eventContent
 }
