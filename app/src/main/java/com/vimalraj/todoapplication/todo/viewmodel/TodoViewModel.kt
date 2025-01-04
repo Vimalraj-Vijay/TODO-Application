@@ -1,8 +1,8 @@
 package com.vimalraj.todoapplication.todo.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import com.vimalraj.todoapplication.core.BaseViewModel
 import com.vimalraj.todoapplication.core.HandleEvent
-import com.vimalraj.todoapplication.core.TypeBasedViewModel
 import com.vimalraj.todoapplication.core.getCurrentDateTime
 import com.vimalraj.todoapplication.core.toString
 import com.vimalraj.todoapplication.todo.TodoConstants.DD_MM_YYYY_T_FORMAT
@@ -12,13 +12,14 @@ import com.vimalraj.todoapplication.todo.usecase.TodoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TodoViewModel @Inject constructor(
-    private val todoUseCase: TodoUseCase
-) : TypeBasedViewModel<TodoViewState, TodoViewEvents>() {
+    private val todoUseCase: TodoUseCase,
+) : BaseViewModel<TodoViewState, TodoViewEvents>() {
 
     fun fetchAllTask() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -30,14 +31,14 @@ class TodoViewModel @Inject constructor(
                 getAllTask.filter { todoModelAndEntity: TodoModelAndEntity -> todoModelAndEntity.isTaskCompleted }
             val finalTodoList = unCompletedTodoList + completedTodoList
 
-            //println("getAllTask --> ${getAllTask.reversed()}")
-            //println("unCompletedTodoList --> ${unCompletedTodoList.reversed()}")
-            //println("completedTodoList --> $completedTodoList")
-            //println("finalTodoList --> $finalTodoList")
-            mutableViewState.postValue(
+
+            /*mutableViewState.postValue(
                 TodoViewState(
                     todoList = finalTodoList
                 )
+            )*/
+            mutableStateFlow.value = TodoViewState(
+                todoList = finalTodoList
             )
         }
     }
@@ -46,15 +47,25 @@ class TodoViewModel @Inject constructor(
         if (isUpdate) {
             updateTask(index)
         }
-        mutableViewEvents.value =
-            HandleEvent(eventContent = TodoViewEvents.LaunchAddTaskBottomSheet)
+
+        /*mutableViewEvents.value =
+            HandleEvent(eventContent = TodoViewEvents.LaunchAddTaskBottomSheet)*/
+
+        mutableEventFlow.value = HandleEvent(eventContent = TodoViewEvents.LaunchAddTaskBottomSheet)
     }
 
-    fun updateTask(index: Int) {
-        mutableViewState.value = mutableViewState.value?.copy(
+    private fun updateTask(index: Int) {
+        /*mutableViewState.value = mutableViewState.value?.copy(
             isUpdateTask = true,
             selectedIndex = index
-        )
+        )*/
+
+        mutableStateFlow.update { currentState ->
+            currentState?.copy(
+                isUpdateTask = true,
+                selectedIndex = index
+            )
+        }
 
     }
 
@@ -86,7 +97,8 @@ class TodoViewModel @Inject constructor(
 
         if (index != -1) {
             todoModelAndEntity = todoModelAndEntity.copy(
-                id = mutableViewState.value?.todoList?.get(index)?.id ?: -1,
+                //id = mutableViewState.value?.todoList?.get(index)?.id ?: -1,
+                id = mutableStateFlow.value?.todoList?.get(index)?.id ?: -1,
             )
         }
 
@@ -115,6 +127,10 @@ class TodoViewModel @Inject constructor(
     }
 
     fun showDeleteAllAlert() {
-        mutableViewEvents.value = HandleEvent(eventContent = TodoViewEvents.LaunchDeleteAllTask)
+        //mutableViewEvents.value = HandleEvent(eventContent = TodoViewEvents.LaunchDeleteAllTask)
+        mutableEventFlow.value = HandleEvent(eventContent = TodoViewEvents.LaunchDeleteAllTask)
     }
+
+    override val initialState: TodoViewState?
+        get() = null
 }

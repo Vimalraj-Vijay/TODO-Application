@@ -18,8 +18,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -41,7 +41,7 @@ import com.vimalraj.todoapplication.ui.theme.TODOApplicationTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TodoViews(todoViewModel: TodoViewModel) {
-    val todoViewState by todoViewModel.viewState.observeAsState()
+    val todoViewState by todoViewModel.viewState.collectAsState()
 
     TODOApplicationTheme {
         Scaffold(
@@ -94,12 +94,12 @@ fun ScrollContent(todoViewModel: TodoViewModel, todoViewState: TodoViewState?) {
     LaunchedEffect(Unit) {
         todoViewModel.fetchAllTask()
     }
-    val todoViewEvents = todoViewModel.viewEvents.observeAsState()
+    val todoViewEvents = todoViewModel.viewEvent.collectAsState()
     var showDialog by remember { mutableStateOf(false) }
     var showBottomSheet by remember { mutableStateOf(false) }
 
 
-    when (todoViewEvents.value?.getEventHandling()) {
+    when (todoViewEvents.value.getEventHandling()) {
         TodoViewEvents.LaunchDeleteAllTask -> {
             showDialog = true
         }

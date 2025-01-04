@@ -21,8 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.vimalraj.todoapplication.todo.database.entity.Priority
-import com.vimalraj.todoapplication.todo.database.entity.TodoModelAndEntity
 import com.vimalraj.todoapplication.todo.viewmodel.TodoViewModel
 import com.vimalraj.todoapplication.todo.views.TodoViews
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,14 +62,6 @@ fun GreetingPreview() {
         },
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
-            val task = listOf(
-                TodoModelAndEntity(
-                    id = 1,
-                    task = "Milk",
-                    priority = Priority.LOW,
-                    createdAt = "23:09:2024 - 12:10 PM"
-                ),
-            )
         }
     }
 }
