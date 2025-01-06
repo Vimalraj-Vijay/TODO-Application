@@ -1,6 +1,6 @@
 package com.vimalraj.todoapplication.todo.viewmodel
 
-import com.vimalraj.todoapplication.core.BaseViewState
+import com.vimalraj.coremodule.BaseViewState
 import com.vimalraj.todoapplication.todo.database.entity.Priority
 import com.vimalraj.todoapplication.todo.database.entity.TodoModelAndEntity
 

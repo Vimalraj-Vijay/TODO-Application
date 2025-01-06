@@ -31,8 +31,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import com.vimalraj.coremodule.views.GenericAlertDialog
 import com.vimalraj.todoapplication.R
-import com.vimalraj.todoapplication.core.views.GenericAlertDialog
 import com.vimalraj.todoapplication.todo.viewmodel.TodoViewEvents
 import com.vimalraj.todoapplication.todo.viewmodel.TodoViewModel
 import com.vimalraj.todoapplication.todo.viewmodel.TodoViewState
@@ -156,7 +156,10 @@ fun ShowDeleteAllTaskDialog(
                 onDismissed.invoke()
                 todoViewModel.deleteAllTask()
             },
-            icon = ImageVector.vectorResource(R.drawable.ic_warning_24)
+            icon = ImageVector.vectorResource(R.drawable.ic_warning_24),
+            iconColor = colorResource(R.color.red30),
+            confirmText = stringResource(R.string.confirm),
+            dismissText = stringResource(R.string.dismiss)
         )
     }
 }

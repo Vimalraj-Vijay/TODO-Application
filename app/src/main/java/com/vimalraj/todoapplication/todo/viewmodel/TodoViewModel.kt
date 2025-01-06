@@ -1,10 +1,10 @@
 package com.vimalraj.todoapplication.todo.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.vimalraj.todoapplication.core.BaseViewModel
-import com.vimalraj.todoapplication.core.HandleEvent
-import com.vimalraj.todoapplication.core.getCurrentDateTime
-import com.vimalraj.todoapplication.core.toString
+import com.vimalraj.coremodule.BaseViewModel
+import com.vimalraj.coremodule.HandleEvent
+import com.vimalraj.coremodule.getCurrentDateTime
+import com.vimalraj.coremodule.toString
 import com.vimalraj.todoapplication.todo.TodoConstants.DD_MM_YYYY_T_FORMAT
 import com.vimalraj.todoapplication.todo.database.entity.Priority
 import com.vimalraj.todoapplication.todo.database.entity.TodoModelAndEntity

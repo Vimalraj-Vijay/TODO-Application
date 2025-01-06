@@ -1,6 +1,7 @@
 package com.vimalraj.todoapplication.todo.viewmodel
 
-import com.vimalraj.todoapplication.core.BaseEvents
+import com.vimalraj.coremodule.BaseEvents
+
 
 sealed class TodoViewEvents : BaseEvents {
 

@@ -82,4 +82,6 @@ dependencies {
     ksp(libs.room.complier)
 
     implementation(libs.coroutines)
+
+    implementation(libs.coremodule)
 }

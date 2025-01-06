@@ -1,5 +1,6 @@
 [versions]
 agp = "8.6.1"
+coremodule = "1.0.0"
 kotlin = "1.9.22"
 ksp-version = "1.9.22-1.0.17"
 coreKtx = "1.15.0"
@@ -18,6 +19,7 @@ runtimeLivedata = "1.7.6"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+coremodule = { module = "com.github.Vimalraj-Vijay:CoreModule", version.ref = "coremodule" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
