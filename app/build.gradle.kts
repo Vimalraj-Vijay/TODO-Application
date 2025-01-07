@@ -83,5 +83,6 @@ dependencies {
 
     implementation(libs.coroutines)
 
+    // Modules
     implementation(libs.coremodule)
 }
