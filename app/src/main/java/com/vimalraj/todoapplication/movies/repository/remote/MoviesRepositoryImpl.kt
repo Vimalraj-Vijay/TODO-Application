@@ -1,8 +1,8 @@
-package com.vimalraj.todoapplication.todo.remote.repo
+package com.vimalraj.todoapplication.movies.repository.remote
 
 import com.vimalraj.network.APIExecutor
 import com.vimalraj.network.ResultHandler
-import com.vimalraj.todoapplication.todo.remote.data.MoviesList
+import com.vimalraj.todoapplication.movies.data.MoviesList
 import javax.inject.Inject
 
 class MoviesRepositoryImpl @Inject constructor(
