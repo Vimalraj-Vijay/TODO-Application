@@ -37,6 +37,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     composeOptions {
@@ -85,4 +86,8 @@ dependencies {
 
     // Modules
     implementation(libs.coremodule)
+
+    implementation(project(":network"))
+
+    implementation(libs.converter.gson)
 }
