@@ -1,4 +1,4 @@
-package com.vimalraj.todoapplication
+package com.vimalraj.network
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
