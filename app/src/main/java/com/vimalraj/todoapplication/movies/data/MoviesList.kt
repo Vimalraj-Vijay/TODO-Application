@@ -1,4 +1,4 @@
-package com.vimalraj.todoapplication.todo.remote.data
+package com.vimalraj.todoapplication.movies.data
 
 import com.google.gson.annotations.SerializedName
 
