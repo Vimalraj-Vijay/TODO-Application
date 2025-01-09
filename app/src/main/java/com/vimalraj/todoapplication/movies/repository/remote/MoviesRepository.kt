@@ -5,6 +5,6 @@ import com.vimalraj.todoapplication.movies.data.MoviesList
 
 interface MoviesRepository {
 
-    suspend fun getMovieList(): ResultHandler<List<MoviesList>>
+    suspend fun getMovieList(): ResultHandler<MoviesList>
 
 }

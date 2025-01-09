@@ -1,6 +1,6 @@
 package com.vimalraj.todoapplication.di
 
-import com.vimalraj.network.APIExecutor
+import com.vimalraj.todoapplication.movies.MovieApiClient
 import com.vimalraj.todoapplication.movies.repository.remote.MoviesRepository
 import com.vimalraj.todoapplication.movies.repository.remote.MoviesRepositoryImpl
 import com.vimalraj.todoapplication.movies.usecase.MovieUseCase
@@ -14,6 +14,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 
@@ -31,8 +32,14 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun providesMoviesRepositoryImpl(apiExecutor: APIExecutor): MoviesRepository {
-        return MoviesRepositoryImpl(apiExecutor)
+    fun providesMoviesRepositoryImpl(movieApiClient: MovieApiClient): MoviesRepository {
+        return MoviesRepositoryImpl(movieApiClient)
+    }
+
+    @Singleton
+    @Provides
+    fun providesMovieApiClient(retrofit: Retrofit): MovieApiClient {
+        return retrofit.create(MovieApiClient::class.java)
     }
 
     @Singleton
