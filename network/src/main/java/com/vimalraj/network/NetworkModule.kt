@@ -1,11 +1,13 @@
 package com.vimalraj.network
 
 
+import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -14,6 +16,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -33,33 +36,50 @@ object NetworkModule {
     fun providesRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder().run {
             baseUrl(APP_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         }
     }
 
-    @Singleton
     @Provides
-    fun providesInterceptor(): Interceptor {
-        return Interceptor {
-            val request = it.request().newBuilder()
-            request.addHeader("Auth", "")
-            val result = request.build()
-            it.proceed(result)
+    @Singleton
+    @Named("ConnectivityInterceptor")
+    fun provideConnectivityInterceptor(@ApplicationContext context: Context): Interceptor {
+        return Interceptor { chain ->
+            if (!isNetworkAvailable(context)) {
+                throw NoConnectivityException(context.getString(R.string.no_internet_connection))
+            }
+            chain.proceed(chain.request())
         }
     }
 
     @Provides
     @Singleton
-    fun providesOkHttpClient(interceptor: Interceptor): OkHttpClient {
+    @Named("AuthInterceptor")
+    fun provideAuthInterceptor(): Interceptor = Interceptor { chain ->
+        val request = chain.request().newBuilder()
+            .addHeader("Authorization", "BEARER_TOKEN")
+            .addHeader("Accept", "application/json")
+            .build()
+        chain.proceed(request)
+    }
+
+    @Provides
+    @Singleton
+    fun providesOkHttpClient(
+        @Named("AuthInterceptor") authInterceptor: Interceptor,
+        @Named("ConnectivityInterceptor") connectivityInterceptor: Interceptor
+    ): OkHttpClient {
+
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
             this.level = HttpLoggingInterceptor.Level.BODY
         }
 
         val httpBuilder = OkHttpClient.Builder()
-            .addInterceptor(interceptor)
+            .addInterceptor(authInterceptor)
             .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(connectivityInterceptor)
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(40, TimeUnit.SECONDS)
@@ -72,11 +92,5 @@ object NetworkModule {
     @Provides
     fun providesApiClient(retrofit: Retrofit): ApiClient {
         return retrofit.create(ApiClient::class.java)
-    }
-
-    @Singleton
-    @Provides
-    fun providesAPIExecutor(apiClient: ApiClient): APIExecutor {
-        return APIExecutor(apiClient)
     }
 }

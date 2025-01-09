@@ -9,7 +9,7 @@ class MovieUseCaseImpl @Inject constructor(
     private val moviesRepository: MoviesRepository
 ) : MovieUseCase {
 
-    override suspend fun getMovies(): ResultHandler<List<MoviesList>> {
+    override suspend fun getMovies(): ResultHandler<MoviesList> {
         return moviesRepository.getMovieList()
     }
 }

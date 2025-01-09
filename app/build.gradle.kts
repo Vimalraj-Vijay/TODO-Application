@@ -89,5 +89,10 @@ dependencies {
 
     implementation(project(":network"))
 
+    //Coil - Image loading
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+
+    //Gson Converter
     implementation(libs.converter.gson)
 }

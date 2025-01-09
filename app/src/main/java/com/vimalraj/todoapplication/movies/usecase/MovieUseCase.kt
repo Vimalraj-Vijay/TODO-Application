@@ -5,5 +5,5 @@ import com.vimalraj.todoapplication.movies.data.MoviesList
 
 interface MovieUseCase {
 
-    suspend fun getMovies(): ResultHandler<List<MoviesList>>
+    suspend fun getMovies(): ResultHandler<MoviesList>
 }
