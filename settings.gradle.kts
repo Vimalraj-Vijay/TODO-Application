@@ -24,4 +24,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "TODO Application"
 include(":app")
-include(":network")
