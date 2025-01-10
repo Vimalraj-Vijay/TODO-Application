@@ -87,10 +87,4 @@ object NetworkModule {
             .protocols(mutableListOf(Protocol.HTTP_1_1))
             .build()
     }
-
-    @Singleton
-    @Provides
-    fun providesApiClient(retrofit: Retrofit): ApiClient {
-        return retrofit.create(ApiClient::class.java)
-    }
 }

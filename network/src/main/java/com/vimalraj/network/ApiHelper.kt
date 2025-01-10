@@ -14,37 +14,49 @@ suspend fun <T> safeApiCall(apiCall: suspend () -> Response<T>): ResultHandler<T
         when {
             response.isSuccessful -> {
                 response.body()?.let { ResultHandler.Success(it) }
-                    ?: ResultHandler.Error("HTTP 200: Empty response body")
+                    ?: ResultHandler.Error(
+                        message = "HTTP 200: Empty response body",
+                        remoteApiError = RemoteApiError.EMPTY_BODY
+                    )
             }
 
-            else -> ResultHandler.Error("HTTP Error: ${response.code()} - ${response.message()}")
+            else -> ResultHandler.Error(
+                message = "HTTP Error: ${response.code()} - ${response.message()}",
+                remoteApiError = RemoteApiError.UNEXPECTED_ERROR
+            )
         }
     } catch (exception: Throwable) {
+        exception.stackTrace
         handleApiError(exception)
     }
 }
 
 // Exception handling with detailed Resource.Error
 private fun <T> handleApiError(exception: Throwable): ResultHandler<T> {
-    val message = when (exception) {
-        is TimeoutException -> "Request timed out. Please try again."
-        is IOException -> "Network error. Please check your connection."
+    val remoteApiError = when (exception) {
+        is TimeoutException -> RemoteApiError.TIMEOUT
+        is NoConnectivityException -> RemoteApiError.NO_INTERNET
+        is IOException -> RemoteApiError.IO_ERROR
         is HttpException -> {
-            when (val statusCode = exception.code()) {
-                400 -> "Bad Request"
-                401 -> "Unauthorized. Please check your credentials."
-                403 -> "Forbidden. Access is denied."
-                404 -> "Resource not found."
-                500 -> "Internal Server Error. Please try again later."
-                503 -> "Service Unavailable. Please try again later."
-                else -> "Unexpected HTTP Error: $statusCode"
+            when (exception.code()) {
+                400 -> RemoteApiError.BAD_REQUEST
+                401 -> RemoteApiError.UNAUTHORIZED
+                403 -> RemoteApiError.FORBIDDEN_ACCESS_DENIED
+                404 -> RemoteApiError.RESOURCE_NOT_FOUND
+                500 -> RemoteApiError.SERVER_ERROR
+                503 -> RemoteApiError.SERVICE_UNAVAILABLE
+                else -> RemoteApiError.UNEXPECTED_HTTP_ERROR
             }
         }
 
-        is JsonParseException, is MalformedJsonException -> "Malformed JSON received. Parsing failed."
-        is IllegalArgumentException -> "Invalid argument provided. ${exception.message}"
-        is IllegalStateException -> "Illegal application state. ${exception.message}"
-        else -> "Unexpected error occurred: ${exception.message}"
+        is JsonParseException, is MalformedJsonException -> RemoteApiError.JSON_PARSE
+        is IllegalArgumentException -> RemoteApiError.ILLEGAL_ARGUMENT
+        is IllegalStateException -> RemoteApiError.ILLEGAL_STATE
+        else -> RemoteApiError.UNEXPECTED_ERROR
     }
-    return ResultHandler.Error(message, exception)
+    return ResultHandler.Error(
+        message = exception.message.toString(),
+        exception = exception,
+        remoteApiError = remoteApiError
+    )
 }

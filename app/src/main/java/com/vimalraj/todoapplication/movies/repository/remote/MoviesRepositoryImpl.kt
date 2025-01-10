@@ -12,7 +12,7 @@ class MoviesRepositoryImpl @Inject constructor(
 
     override suspend fun getMovieList(): ResultHandler<MoviesList> {
         return safeApiCall {
-            movieApiClient.getMoviesStatus()
+            movieApiClient.getMoviesStatus(url = "https://run.mocky.io/v3/43c58e72-d161-422a-ba29-28762354b352")
         }
     }
 
