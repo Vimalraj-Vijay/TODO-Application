@@ -86,8 +86,8 @@ dependencies {
 
     // Modules
     implementation(libs.coremodule)
+    implementation(libs.networkmodule)
 
-    implementation(project(":network"))
 
     //Coil - Image loading
     implementation(libs.coil.compose)
