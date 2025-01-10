@@ -3,6 +3,7 @@ package com.vimalraj.todoapplication.movies.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.vimalraj.coremodule.BaseEvents
 import com.vimalraj.coremodule.BaseViewModel
+import com.vimalraj.network.RemoteApiError
 import com.vimalraj.network.ResultHandler
 import com.vimalraj.todoapplication.movies.data.MoviesList
 import com.vimalraj.todoapplication.movies.usecase.MovieUseCase
@@ -33,7 +34,10 @@ class MovieListViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = block()) {
                 is ResultHandler.Success -> handleSuccess(result.data)
-                is ResultHandler.Error -> handleError()
+                is ResultHandler.Error -> {
+                    handleError(result.remoteApiError)
+                }
+
                 is ResultHandler.AccessDenied -> {
                     // Do nothing
                 }
@@ -41,7 +45,11 @@ class MovieListViewModel @Inject constructor(
         }
     }
 
-    private fun handleError() {
+    private fun handleError(remoteApiError: RemoteApiError) {
+        if (RemoteApiError.NO_INTERNET == remoteApiError) {
+            // Handle NO_INTERNET Event
+            println("Logging -> NO_INTERNET")
+        }
         mutableStateFlow.update { currentState ->
             currentState?.copy(isError = true, isLoading = false)
         }
