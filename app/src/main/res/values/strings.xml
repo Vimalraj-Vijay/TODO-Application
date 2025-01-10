@@ -17,4 +17,5 @@
     <string name="title_activity_todos">TodosActivity</string>
     <string name="movies">Movies</string>
     <string name="ratings">Ratings: %1$s</string>
+    <string name="something_went_wrong_try_again_later">Something went wrong. Try again later.</string>
 </resources>
