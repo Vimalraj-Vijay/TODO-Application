@@ -21,6 +21,9 @@ class MovieListViewModel @Inject constructor(
 
 
     fun fetchMovieListFromRemote() {
+        mutableStateFlow.update { currentState ->
+            currentState?.copy(isLoading = true)
+        }
         executeSuspend {
             movieUseCase.getMovies()
         }
@@ -30,21 +33,28 @@ class MovieListViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = block()) {
                 is ResultHandler.Success -> handleSuccess(result.data)
-                is ResultHandler.Error -> {
-
-                }
-
-                else -> {
-
+                is ResultHandler.Error -> handleError()
+                is ResultHandler.AccessDenied -> {
+                    // Do nothing
                 }
             }
+        }
+    }
+
+    private fun handleError() {
+        mutableStateFlow.update { currentState ->
+            currentState?.copy(isError = true, isLoading = false)
         }
     }
 
     private fun <T> handleSuccess(data: T) {
         mutableStateFlow.update { currentState ->
             when (data) {
-                is MoviesList -> currentState?.copy(movieDetailsItem = data.movies)
+                is MoviesList -> currentState?.copy(
+                    movieDetailsItem = data.movies,
+                    isLoading = false
+                )
+
                 else -> currentState?.copy(isError = false, movieDetailsItem = emptyList())
             }
         }

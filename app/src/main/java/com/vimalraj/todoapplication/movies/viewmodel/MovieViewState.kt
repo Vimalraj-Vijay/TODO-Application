@@ -5,5 +5,6 @@ import com.vimalraj.todoapplication.movies.data.MovieDetails
 
 data class MovieViewState(
     val movieDetailsItem: List<MovieDetails> = emptyList(),
-    val isError: Boolean = false
+    val isError: Boolean = false,
+    val isLoading: Boolean = false,
 ) : BaseViewState
