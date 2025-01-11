@@ -31,7 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import com.vimalraj.coremodule.views.GenericAlertDialog
+import com.vimalraj.coremodule.common.utils.GenericAlertDialog
 import com.vimalraj.todoapplication.R
 import com.vimalraj.todoapplication.todo.viewmodel.TodoViewEvents
 import com.vimalraj.todoapplication.todo.viewmodel.TodoViewModel

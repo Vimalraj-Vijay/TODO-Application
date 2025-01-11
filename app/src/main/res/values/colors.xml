@@ -12,5 +12,7 @@
     <color name="blue40">#FF72BEF3</color>
     <color name="green">#4CAF50</color>
 
+
+    <color name="red_light">#52E86262</color>
     <color name="red30">#F43F3F</color>
 </resources>
