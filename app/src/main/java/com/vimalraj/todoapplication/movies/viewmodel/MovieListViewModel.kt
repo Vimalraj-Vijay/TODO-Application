@@ -30,7 +30,7 @@ class MovieListViewModel @Inject constructor(
         }
     }
 
-    private fun <T> executeSuspend(block: suspend () -> ResultHandler<T>) {
+    private fun executeSuspend(block: suspend () -> ResultHandler<MoviesList>) {
         viewModelScope.launch {
             when (val result = block()) {
                 is ResultHandler.Success -> handleSuccess(result.data)
@@ -63,16 +63,12 @@ class MovieListViewModel @Inject constructor(
         }
     }
 
-    private fun <T> handleSuccess(data: T) {
+    private fun handleSuccess(data: MoviesList) {
         mutableStateFlow.update { currentState ->
-            when (data) {
-                is MoviesList -> currentState?.copy(
-                    movieDetailsItem = data.movies,
-                    isLoading = false
-                )
-
-                else -> currentState?.copy(isError = false, movieDetailsItem = emptyList())
-            }
+            currentState?.copy(
+                movieDetailsItem = data.movies,
+                isLoading = false
+            )
         }
     }
 }
