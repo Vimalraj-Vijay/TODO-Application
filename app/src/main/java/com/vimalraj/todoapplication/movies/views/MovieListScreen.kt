@@ -1,6 +1,6 @@
 package com.vimalraj.todoapplication.movies.views
 
-import android.annotation.SuppressLint
+import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,31 +20,42 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
+import com.vimalraj.coremodule.HandleEvent
 import com.vimalraj.coremodule.common.utils.CircularLoader
 import com.vimalraj.coremodule.common.utils.ErrorScreen
+import com.vimalraj.coremodule.common.utils.NoInternetAlertDialog
 import com.vimalraj.todoapplication.R
 import com.vimalraj.todoapplication.movies.data.MovieDetails
 import com.vimalraj.todoapplication.movies.viewmodel.MovieListViewModel
+import com.vimalraj.todoapplication.movies.viewmodel.MovieViewEvents
 import com.vimalraj.todoapplication.ui.theme.TODOApplicationTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MovieListScreen(movieListViewModel: MovieListViewModel) {
+    val activity = (LocalContext.current as? Activity)
+
     LaunchedEffect(Unit) {
         movieListViewModel.fetchMovieListFromRemote()
     }
     val movieViewState by movieListViewModel.viewState.collectAsStateWithLifecycle()
+    val movieViewEvents by movieListViewModel.viewEvent.collectAsStateWithLifecycle()
+
+    val showNoInternetDialog = remember { mutableStateOf(false) }
 
     TODOApplicationTheme {
         Scaffold(
@@ -60,13 +71,40 @@ fun MovieListScreen(movieListViewModel: MovieListViewModel) {
             },
         ) { innerPadding ->
             val movieList = movieViewState?.movieDetailsItem ?: emptyList()
+            handleEvents(movieViewEvents, showNoInternetDialog)
+
+
             CircularLoader(
                 showLoader = movieViewState?.isLoading == true,
                 color = colorResource(R.color.red40),
                 trackColor = colorResource(R.color.red_light)
             )
+
+            if (showNoInternetDialog.value) {
+                NoInternetAlertDialog {
+                    showNoInternetDialog.value = false
+                    activity?.finish()
+                }
+                return@Scaffold
+            }
+
             LazyMovieGrid(innerPadding, movieDetailsList = movieList)
             ErrorScreen(showError = movieViewState?.isError == true)
+        }
+    }
+}
+
+private fun handleEvents(
+    movieViewEvents: HandleEvent<MovieViewEvents?>,
+    showNoInternetDialog: MutableState<Boolean>
+) {
+    when (movieViewEvents.getEventHandling()) {
+        MovieViewEvents.LaunchNoInternetConnection -> {
+            showNoInternetDialog.value = true
+        }
+
+        else -> {
+            // Do Nothing
         }
     }
 }
@@ -121,11 +159,4 @@ fun LazyMovieGrid(innerPadding: PaddingValues, movieDetailsList: List<MovieDetai
             )
         }
     }
-}
-
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Composable
-@Preview(showBackground = true, showSystemUi = true)
-fun CardItem() {
-    ErrorScreen(true)
 }

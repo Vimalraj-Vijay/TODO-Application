@@ -1,8 +1,8 @@
 package com.vimalraj.todoapplication.movies.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.vimalraj.coremodule.BaseEvents
 import com.vimalraj.coremodule.BaseViewModel
+import com.vimalraj.coremodule.HandleEvent
 import com.vimalraj.network.RemoteApiError
 import com.vimalraj.network.ResultHandler
 import com.vimalraj.todoapplication.movies.data.MoviesList
@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieListViewModel @Inject constructor(
     private val movieUseCase: MovieUseCase
-) : BaseViewModel<MovieViewState, BaseEvents>() {
+) : BaseViewModel<MovieViewState, MovieViewEvents>() {
 
     override val initialState: MovieViewState
         get() = MovieViewState()
@@ -48,10 +48,18 @@ class MovieListViewModel @Inject constructor(
     private fun handleError(remoteApiError: RemoteApiError) {
         if (RemoteApiError.NO_INTERNET == remoteApiError) {
             // Handle NO_INTERNET Event
-            println("Logging -> NO_INTERNET")
-        }
-        mutableStateFlow.update { currentState ->
-            currentState?.copy(isError = true, isLoading = false)
+            mutableStateFlow.update { currentState ->
+                currentState?.copy(
+                    isError = false,
+                    isLoading = false,
+                    movieDetailsItem = emptyList()
+                )
+            }
+            mutableEventFlow.value = HandleEvent(MovieViewEvents.LaunchNoInternetConnection)
+        } else {
+            mutableStateFlow.update { currentState ->
+                currentState?.copy(isError = true, isLoading = false)
+            }
         }
     }
 
