@@ -1,0 +1,74 @@
+{
+  "multipleViews": [
+    {
+      "sectionId": "BILLINGS_SECTION",
+      "sectionName": "Understand your billings",
+      "sectionType": "header_regular",
+      "features": [
+        {
+          "featureId": "VIEW_AND_PAY",
+          "title": "Effortless Bill Management",
+          "description": "Quickly access and review your bills in one place. Make payments securely and conveniently with just a few clicks.",
+          "buttonText": "View and Pay bills",
+          "viewType": "billing_regular"
+        },
+        {
+          "featureId": "KNOW_MORE_ABOUT_BILLING",
+          "title": "Billing Information and Insights",
+          "description": "Get detailed insights into your billing process. Learn how charges are calculated and stay informed about payment schedules.",
+          "buttonText": "Know more about billing",
+          "viewType": "billing_regular"
+        },
+        {
+          "featureId": "PAST_PAYMENTS",
+          "title": "Review Past Payments",
+          "description": "Easily access and review your payment history. Stay organized and keep track of all your previous transactions in one place",
+          "buttonText": "View Payment History",
+          "viewType": "billing_regular"
+        }
+      ]
+    },
+    {
+      "sectionId": "CLAIMS_SECTION",
+      "sectionName": "Claims",
+      "sectionType": "header_regular",
+      "features": [
+        {
+          "featureId": "SUBMIT_A_CLAIM",
+          "title": "Submit a Claim",
+          "description": "Initiate and manage your claims effortlessly. Provide necessary details and track the status of your submissions in real-time.",
+          "buttonText": "Submit now",
+          "viewType": "claim_regular"
+        },
+        {
+          "featureId": "CLAIMS_HISTORY",
+          "title": "Claim History",
+          "description": "Access and review your claim history with ease. Stay informed about the status and details of all your previous claims in one convenient location.",
+          "buttonText": "View Claims",
+          "viewType": "claim_regular"
+        }
+      ]
+    },
+    {
+      "sectionId": "VCS_SECTION",
+      "sectionName": "Visit Cost Summary",
+      "sectionType": "header_regular",
+      "features": [
+        {
+          "featureId": "INSURANCE_INFO",
+          "title": "Insurance Coverage Information",
+          "description": "Understand how much of the visit cost is covered by your insurance and what portion is your responsibility",
+          "buttonText": "Insurance Info",
+          "viewType": "vcs_regular"
+        },
+        {
+          "featureId": "CONTACT_INFO",
+          "title": "Contact Information",
+          "description": "Get contact details for billing support in case you have any questions or need further assistance.",
+          "buttonText": "Contact",
+          "viewType": "vcs_regular"
+        }
+      ]
+    }
+  ]
+}
