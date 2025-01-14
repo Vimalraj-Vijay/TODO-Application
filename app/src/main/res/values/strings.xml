@@ -19,4 +19,5 @@
     <string name="ratings">Ratings: %1$s</string>
     <string name="something_went_wrong_try_again_later">Something went wrong. Try again later.</string>
     <string name="title_activity_movies">MoviesActivity</string>
+    <string name="lazy_column_with_multiple_view_type">Lazy Column With Multiple View Type</string>
 </resources>
