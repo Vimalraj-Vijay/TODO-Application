@@ -21,19 +21,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.vimalraj.todoapplication.movies.viewmodel.MovieListViewModel
-import com.vimalraj.todoapplication.movies.views.MovieListScreen
+import com.vimalraj.todoapplication.multipleviewtype.view.MultiViewScreen
+import com.vimalraj.todoapplication.multipleviewtype.viewmodel.MultiTypeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val movieListViewModel: MovieListViewModel by viewModels()
+    private val multiTypeViewModel: MultiTypeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MovieListScreen(movieListViewModel = movieListViewModel)
+            MultiViewScreen(multiTypeViewModel)
         }
     }
 }
