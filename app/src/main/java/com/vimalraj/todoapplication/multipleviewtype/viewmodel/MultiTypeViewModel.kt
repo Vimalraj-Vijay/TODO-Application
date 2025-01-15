@@ -20,7 +20,7 @@ class MultiTypeViewModel @Inject constructor(
 
 
     override val initialState: MultiTypeViewState
-        get() = MultiTypeViewState(multipleViewsResponse = null)
+        get() = MultiTypeViewState(multipleViewsResponse = null, isLoading = true)
 
 
     fun fetchMultiViewTypeJson() {
@@ -48,7 +48,11 @@ class MultiTypeViewModel @Inject constructor(
         if (remoteApiError == RemoteApiError.NO_INTERNET) {
             mutableEventFlow.value = HandleEvent(MultiTypeViewEvents.LaunchNoInternetConnection)
         } else {
-
+            mutableStateFlow.update { currentState ->
+                currentState?.copy(
+                    isError = true, isLoading = false
+                )
+            }
         }
 
     }

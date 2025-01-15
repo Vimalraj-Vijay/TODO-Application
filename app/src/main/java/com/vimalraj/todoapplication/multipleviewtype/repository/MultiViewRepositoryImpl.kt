@@ -12,7 +12,7 @@ class MultiViewRepositoryImpl @Inject constructor(
 
     override suspend fun fetchMultipleView(): ResultHandler<MultipleViewsResponse> {
         return safeApiCall {
-            val url = "https://run.mocky.io/v3/6c925f9b-1a28-4c5e-9fcb-183dd69d6195"
+            val url = "https://codingdev.free.beeceptor.com/multiviewtype"
             multiViewClient.fetchMultiViewJson(url = url)
         }
     }
