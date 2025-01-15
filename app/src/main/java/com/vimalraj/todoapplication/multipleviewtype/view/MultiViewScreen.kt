@@ -143,11 +143,11 @@ fun LazyColumnMultiViewType(
                         }
 
                         ViewType.CLAIM_REGULAR -> {
-                            Text("Claim regular ${feature.title}")
+                            ClaimsRegularItem(features = feature)
                         }
 
                         ViewType.VCS_REGULAR -> {
-                            Text("VCS regular ${feature.title}")
+                            VCSRegularItem(features = feature)
                         }
 
                         else -> {
@@ -158,4 +158,8 @@ fun LazyColumnMultiViewType(
             }
         }
     }
+}
+
+fun getValueOrEmpty(value: String?): String {
+    return value ?: ""
 }

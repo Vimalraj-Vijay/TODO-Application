@@ -12,6 +12,8 @@
     <color name="yellow40">#FFFFD976</color>
     <color name="blue40">#FF72BEF3</color>
     <color name="green">#4CAF50</color>
+    <color name="dark_blue">#3B63D1</color>
+    <color name="fade_dark_blue">#CC3B63D1</color>
 
 
     <color name="red_light">#52E86262</color>

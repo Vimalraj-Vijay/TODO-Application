@@ -1,0 +1,39 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <path
+        android:fillColor="#4891d3"
+        android:pathData="M9,9V39a2,2 0,0 1,-2 -2V11A2,2 0,0 1,9 9zM41,11V37a2,2 0,0 1,-2 2H23V9H39A2,2 0,0 1,41 11z" />
+
+    <path
+        android:fillColor="#2d71ba"
+        android:pathData="M12,7L20,7A1,1 0,0 1,21 8L21,40A1,1 0,0 1,20 41L12,41A1,1 0,0 1,11 40L11,8A1,1 0,0 1,12 7z" />
+
+    <path
+        android:fillColor="#192835"
+        android:pathData="M10,7L9,7a4,4 0,0 0,-4 4L5,37a4,4 0,0 0,4 4h1a1,1 0,0 0,1 -1L11,8A1,1 0,0 0,10 7zM7,37L7,11A2,2 0,0 1,9 9L9,39A2,2 0,0 1,7 37zM39,7L22,7a1,1 0,0 0,-1 1L21,40a1,1 0,0 0,1 1L39,41a4,4 0,0 0,4 -4L43,11A4,4 0,0 0,39 7zM41,37a2,2 0,0 1,-2 2L23,39L23,9L39,9a2,2 0,0 1,2 2z" />
+
+    <path
+        android:fillColor="#192835"
+        android:pathData="M38,11L26,11a1,1 0,0 0,-1 1v5a1,1 0,0 0,1 1L38,18a1,1 0,0 0,1 -1L39,12A1,1 0,0 0,38 11ZM37,16L27,16L27,13L37,13Z" />
+
+    <path
+        android:fillColor="#f9e109"
+        android:pathData="M27,13h10v3h-10z" />
+
+    <path
+        android:fillColor="#192835"
+        android:pathData="M28,22H26a1,1 0,0 1,0 -2h2a1,1 0,0 1,0 2zM33,22H31a1,1 0,0 1,0 -2h2a1,1 0,0 1,0 2zM38,22H36a1,1 0,0 1,0 -2h2a1,1 0,0 1,0 2zM28,25H26a1,1 0,0 1,0 -2h2a1,1 0,0 1,0 2zM33,25H31a1,1 0,0 1,0 -2h2a1,1 0,0 1,0 2zM38,25H36a1,1 0,0 1,0 -2h2a1,1 0,0 1,0 2zM28,28H26a1,1 0,0 1,0 -2h2a1,1 0,0 1,0 2zM33,28H31a1,1 0,0 1,0 -2h2a1,1 0,0 1,0 2zM33,31H31a1,1 0,0 1,0 -2h2a1,1 0,0 1,0 2zM38,28H36a1,1 0,0 1,0 -2h2a1,1 0,0 1,0 2z" />
+
+    <path
+        android:fillColor="#2d71ba"
+        android:pathData="M38,37H22a1,1 0,0 1,0 -2H38a1,1 0,0 1,0 2Z" />
+
+    <path
+        android:fillColor="#192835"
+        android:pathData="M22.82,7A3,3 0,0 0,20 5H12A3,3 0,0 0,9.18 7,2.77 2.77,0 0,0 9,8V40a2.77,2.77 0,0 0,0.18 1A3,3 0,0 0,12 43h8a3,3 0,0 0,2.82 -2A2.77,2.77 0,0 0,23 40V8A2.77,2.77 0,0 0,22.82 7ZM20,41H12a1,1 0,0 1,-1 -1V8a1,1 0,0 1,1 -1h8a1,1 0,0 1,1 1V40A1,1 0,0 1,20 41Z" />
+
+</vector>

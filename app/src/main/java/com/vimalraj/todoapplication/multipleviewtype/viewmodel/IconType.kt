@@ -12,4 +12,16 @@ enum class IconType(val icon: Int, val contentDescription: String) {
 
     @SerializedName("PAST_PAYMENTS")
     PAST_PAYMENTS(icon = R.drawable.ic_item_payment_history, contentDescription = ""),
+
+    @SerializedName("SUBMIT_A_CLAIM")
+    SUBMIT_A_CLAIM(icon = R.drawable.ic_submit_claim, contentDescription = ""),
+
+    @SerializedName("CLAIMS_HISTORY")
+    CLAIMS_HISTORY(icon = R.drawable.ic_claim_history, contentDescription = ""),
+
+    @SerializedName("INSURANCE_INFO")
+    INSURANCE_INFO(icon = R.drawable.ic_insurance_info, contentDescription = ""),
+
+    @SerializedName("CONTACT_INFO")
+    CONTACT_INFO(icon = R.drawable.ic_contact, contentDescription = ""),
 }
