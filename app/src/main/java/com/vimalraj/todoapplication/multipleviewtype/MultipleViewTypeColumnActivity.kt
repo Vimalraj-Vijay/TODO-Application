@@ -1,24 +1,23 @@
-package com.vimalraj.todoapplication.todo
+package com.vimalraj.todoapplication.multipleviewtype
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import com.vimalraj.todoapplication.todo.viewmodel.TodoViewModel
-import com.vimalraj.todoapplication.todo.views.TodoViews
+import com.vimalraj.todoapplication.multipleviewtype.view.MultiViewScreen
+import com.vimalraj.todoapplication.multipleviewtype.viewmodel.MultiTypeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TodosActivity : ComponentActivity() {
-
-    private val todoViewModel: TodoViewModel by viewModels()
+class MultipleViewTypeColumnActivity : ComponentActivity() {
+    private val multiTypeViewModel: MultiTypeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            TodoViews(todoViewModel)
+            MultiViewScreen(multiTypeViewModel = multiTypeViewModel)
         }
     }
 }
