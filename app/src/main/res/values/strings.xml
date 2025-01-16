@@ -19,5 +19,9 @@
     <string name="ratings">Ratings: %1$s</string>
     <string name="something_went_wrong_try_again_later">Something went wrong. Try again later.</string>
     <string name="title_activity_movies">MoviesActivity</string>
-    <string name="lazy_column_with_multiple_view_type">Lazy Column With Multiple View Type</string>
+    <string name="lazy_column_with_multiple_view_type">Multiple View Type</string>
+    <string name="title_activity_multiple_view_type_column">MultipleViewTypeColumnActivity</string>
+    <string name="todo_drawer_title">Todo</string>
+    <string name="movies_drawer_title">Movies</string>
+    <string name="mutliple_view_drawer_title">Multiple View Type</string>
 </resources>
