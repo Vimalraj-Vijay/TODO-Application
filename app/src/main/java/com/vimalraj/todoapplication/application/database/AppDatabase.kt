@@ -1,5 +1,4 @@
-package com.vimalraj.todoapplication.todo.database
-
+package com.vimalraj.todoapplication.application.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -11,7 +10,6 @@ import com.vimalraj.todoapplication.todo.database.entity.TodoModelAndEntity
     entities = [TodoModelAndEntity::class],
     exportSchema = false
 )
-abstract class TodoDatabase : RoomDatabase() {
-
+abstract class AppDatabase : RoomDatabase() {
     abstract fun todoDao(): TodoDao
 }
