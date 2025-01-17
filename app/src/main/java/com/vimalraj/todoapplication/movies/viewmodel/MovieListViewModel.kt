@@ -18,26 +18,15 @@ class MovieListViewModel @Inject constructor(
 ) : BaseViewModel<MovieViewState, MovieViewEvents>() {
 
     override val initialState: MovieViewState
-        get() = MovieViewState()
+        get() = MovieViewState(isLoading = true)
 
-
-    fun fetchMovieListFromRemote() {
-        mutableStateFlow.update { currentState ->
-            currentState?.copy(isLoading = true)
-        }
-        executeSuspend {
-            movieUseCase.getMovies()
-        }
-    }
-
-    private fun executeSuspend(block: suspend () -> ResultHandler<MoviesList>) {
+    fun executeSuspend() {
         viewModelScope.launch {
-            when (val result = block()) {
+            when (val result = movieUseCase.fetchMovieListResponse()) {
                 is ResultHandler.Success -> handleSuccess(result.data)
                 is ResultHandler.Error -> {
                     handleError(result.remoteApiError)
                 }
-
                 is ResultHandler.AccessDenied -> {
                     // Do nothing
                 }

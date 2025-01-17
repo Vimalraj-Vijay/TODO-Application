@@ -3,6 +3,7 @@ package com.vimalraj.todoapplication.di
 import android.content.Context
 import androidx.room.Room
 import com.vimalraj.todoapplication.application.database.AppDatabase
+import com.vimalraj.todoapplication.movies.repository.local.MoviesDao
 import com.vimalraj.todoapplication.todo.database.dao.TodoDao
 import dagger.Module
 import dagger.Provides
@@ -29,6 +30,12 @@ object DatabaseModule {
     @Provides
     fun providesTodoDao(todoDatabase: AppDatabase): TodoDao {
         return todoDatabase.todoDao()
+    }
+
+    @Singleton
+    @Provides
+    fun providesMoviesDao(appDatabase: AppDatabase): MoviesDao {
+        return appDatabase.moviesDao()
     }
 
 }

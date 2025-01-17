@@ -23,20 +23,13 @@ class MultiTypeViewModel @Inject constructor(
         get() = MultiTypeViewState(multipleViewsResponse = null, isLoading = true)
 
 
-    fun fetchMultiViewTypeJson() {
-        executeSuspend {
-            multiViewUseCase.getMultiViewTypeJson()
-        }
-    }
-
-    private fun executeSuspend(block: suspend () -> ResultHandler<MultipleViewsResponse>) {
+    fun executeSuspend() {
         viewModelScope.launch {
-            when (val result = block()) {
+            when (val result = multiViewUseCase.fetchMultiViewTypeResponse()) {
                 is ResultHandler.Success -> handleSuccess(result.data)
                 is ResultHandler.Error -> {
                     handleError(result.remoteApiError)
                 }
-
                 is ResultHandler.AccessDenied -> {
                     // Do nothing
                 }

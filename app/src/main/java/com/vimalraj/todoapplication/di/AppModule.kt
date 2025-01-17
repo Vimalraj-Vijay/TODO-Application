@@ -37,14 +37,20 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun providesMoviesRepositoryImpl(movieApiClient: MovieApiClient): MoviesRepository {
-        return MoviesRepositoryImpl(movieApiClient)
+    fun providesMoviesRepositoryImpl(
+        movieApiClient: MovieApiClient,
+        appDatabase: AppDatabase
+    ): MoviesRepository {
+        return MoviesRepositoryImpl(movieApiClient, appDatabase)
     }
 
     @Singleton
     @Provides
-    fun providesMultiViewRepository(multiViewClient: MultiViewClient): MultiViewRepository {
-        return MultiViewRepositoryImpl(multiViewClient)
+    fun providesMultiViewRepository(
+        multiViewClient: MultiViewClient,
+        appDatabase: AppDatabase
+    ): MultiViewRepository {
+        return MultiViewRepositoryImpl(multiViewClient, appDatabase)
     }
 
     @Singleton

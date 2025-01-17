@@ -6,4 +6,6 @@ import com.vimalraj.todoapplication.multipleviewtype.data.MultipleViewsResponse
 interface MultiViewRepository {
 
     suspend fun fetchMultipleView(): ResultHandler<MultipleViewsResponse>
+
+    suspend fun fetchMultipleViewFromLocal(): MultipleViewsResponse?
 }
