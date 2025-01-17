@@ -2,7 +2,8 @@ package com.vimalraj.todoapplication.di
 
 import android.content.Context
 import androidx.room.Room
-import com.vimalraj.todoapplication.todo.database.TodoDatabase
+import com.vimalraj.todoapplication.application.database.AppDatabase
+import com.vimalraj.todoapplication.movies.repository.local.MoviesDao
 import com.vimalraj.todoapplication.todo.database.dao.TodoDao
 import dagger.Module
 import dagger.Provides
@@ -17,18 +18,24 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun providesDatabase(@ApplicationContext context: Context): TodoDatabase {
+    fun providesDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(
             context,
-            TodoDatabase::class.java,
-            TodoDatabase::class.java.name
+            AppDatabase::class.java,
+            AppDatabase::class.java.name
         ).fallbackToDestructiveMigration().build()
     }
 
     @Singleton
     @Provides
-    fun providesTodoDao(todoDatabase: TodoDatabase): TodoDao {
+    fun providesTodoDao(todoDatabase: AppDatabase): TodoDao {
         return todoDatabase.todoDao()
+    }
+
+    @Singleton
+    @Provides
+    fun providesMoviesDao(appDatabase: AppDatabase): MoviesDao {
+        return appDatabase.moviesDao()
     }
 
 }

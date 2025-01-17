@@ -9,7 +9,12 @@ class MovieUseCaseImpl @Inject constructor(
     private val moviesRepository: MoviesRepository
 ) : MovieUseCase {
 
-    override suspend fun getMovies(): ResultHandler<MoviesList> {
-        return moviesRepository.getMovieList()
+    override suspend fun fetchMovieListResponse(): ResultHandler<MoviesList> {
+        val fetchFromLocal = moviesRepository.getMovieListFromLocal()
+        return if (fetchFromLocal != null) {
+            ResultHandler.Success(data = fetchFromLocal)
+        } else {
+            moviesRepository.getMovieList()
+        }
     }
 }

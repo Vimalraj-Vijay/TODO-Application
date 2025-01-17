@@ -9,8 +9,12 @@ class MultiViewUseCaseImpl @Inject constructor(
     private val multiViewRepository: MultiViewRepository
 ) : MultiViewUseCase {
 
-
-    override suspend fun getMultiViewTypeJson(): ResultHandler<MultipleViewsResponse> {
-        return multiViewRepository.fetchMultipleView()
+    override suspend fun fetchMultiViewTypeResponse(): ResultHandler<MultipleViewsResponse> {
+        val fetchFromLocal = multiViewRepository.fetchMultipleViewFromLocal()
+        return if (fetchFromLocal != null) {
+            ResultHandler.Success(data = fetchFromLocal)
+        } else {
+            multiViewRepository.fetchMultipleView()
+        }
     }
 }

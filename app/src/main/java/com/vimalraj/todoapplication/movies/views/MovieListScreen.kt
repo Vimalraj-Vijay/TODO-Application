@@ -69,7 +69,7 @@ fun MovieListScreen(movieListViewModel: MovieListViewModel) {
     val activity = (LocalContext.current as? Activity)
 
     LaunchedEffect(Unit) {
-        movieListViewModel.fetchMovieListFromRemote()
+        movieListViewModel.executeSuspend()
     }
     val movieViewState by movieListViewModel.viewState.collectAsStateWithLifecycle()
     val movieViewEvents by movieListViewModel.viewEvent.collectAsStateWithLifecycle()

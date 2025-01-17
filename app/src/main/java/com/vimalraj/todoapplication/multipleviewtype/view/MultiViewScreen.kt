@@ -65,7 +65,7 @@ fun MultiViewScreen(multiTypeViewModel: MultiTypeViewModel) {
     val activity = (LocalContext.current as? Activity)
 
     LaunchedEffect(Unit) {
-        multiTypeViewModel.fetchMultiViewTypeJson()
+        multiTypeViewModel.executeSuspend()
     }
 
     val multiTypeViewState by multiTypeViewModel.viewState.collectAsStateWithLifecycle()

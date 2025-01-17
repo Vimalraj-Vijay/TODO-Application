@@ -7,4 +7,6 @@ interface MoviesRepository {
 
     suspend fun getMovieList(): ResultHandler<MoviesList>
 
+    suspend fun getMovieListFromLocal(): MoviesList?
+
 }

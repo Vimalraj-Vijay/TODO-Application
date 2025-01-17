@@ -1,5 +1,6 @@
 package com.vimalraj.todoapplication.di
 
+import com.vimalraj.todoapplication.application.database.AppDatabase
 import com.vimalraj.todoapplication.movies.MovieApiClient
 import com.vimalraj.todoapplication.movies.repository.remote.MoviesRepository
 import com.vimalraj.todoapplication.movies.repository.remote.MoviesRepositoryImpl
@@ -10,7 +11,6 @@ import com.vimalraj.todoapplication.multipleviewtype.repository.MultiViewReposit
 import com.vimalraj.todoapplication.multipleviewtype.repository.MultiViewRepositoryImpl
 import com.vimalraj.todoapplication.multipleviewtype.usecase.MultiViewUseCase
 import com.vimalraj.todoapplication.multipleviewtype.usecase.MultiViewUseCaseImpl
-import com.vimalraj.todoapplication.todo.database.TodoDatabase
 import com.vimalraj.todoapplication.todo.repo.TodoLocalRepository
 import com.vimalraj.todoapplication.todo.repo.TodoLocalRepositoryImpl
 import com.vimalraj.todoapplication.todo.usecase.TodoUseCase
@@ -29,22 +29,28 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun providesTodoLocalRepository(todoDatabase: TodoDatabase): TodoLocalRepository {
+    fun providesTodoLocalRepository(appDatabase: AppDatabase): TodoLocalRepository {
         return TodoLocalRepositoryImpl(
-            todoDatabase = todoDatabase
+            todoDatabase = appDatabase
         )
     }
 
     @Singleton
     @Provides
-    fun providesMoviesRepositoryImpl(movieApiClient: MovieApiClient): MoviesRepository {
-        return MoviesRepositoryImpl(movieApiClient)
+    fun providesMoviesRepositoryImpl(
+        movieApiClient: MovieApiClient,
+        appDatabase: AppDatabase
+    ): MoviesRepository {
+        return MoviesRepositoryImpl(movieApiClient, appDatabase)
     }
 
     @Singleton
     @Provides
-    fun providesMultiViewRepository(multiViewClient: MultiViewClient): MultiViewRepository {
-        return MultiViewRepositoryImpl(multiViewClient)
+    fun providesMultiViewRepository(
+        multiViewClient: MultiViewClient,
+        appDatabase: AppDatabase
+    ): MultiViewRepository {
+        return MultiViewRepositoryImpl(multiViewClient, appDatabase)
     }
 
     @Singleton

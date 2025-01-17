@@ -5,5 +5,5 @@ import com.vimalraj.todoapplication.multipleviewtype.data.MultipleViewsResponse
 
 interface MultiViewUseCase {
 
-    suspend fun getMultiViewTypeJson(): ResultHandler<MultipleViewsResponse>
+    suspend fun fetchMultiViewTypeResponse(): ResultHandler<MultipleViewsResponse>
 }
