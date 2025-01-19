@@ -228,6 +228,10 @@ fun LazyColumnMultiViewType(
                             VCSRegularItem(features = feature)
                         }
 
+                        ViewType.INVOICE -> {
+                            InvoiceConstraintItem(features = feature)
+                        }
+
                         else -> {
                             // Do nothing
                         }

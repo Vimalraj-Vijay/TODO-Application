@@ -15,6 +15,8 @@ data class Features(
     val description: String? = null,
     @SerializedName("buttonText")
     val buttonText: String? = null,
+    @SerializedName("subFeatureButtonsList")
+    val subFeatureButtonsList: List<String>? = null,
     @SerializedName("viewType")
     val viewType: ViewType? = null
 )

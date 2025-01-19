@@ -10,5 +10,8 @@ enum class ViewType {
     CLAIM_REGULAR,
 
     @SerializedName("vcs_regular")
-    VCS_REGULAR
+    VCS_REGULAR,
+
+    @SerializedName("invoice_constraint")
+    INVOICE
 }
