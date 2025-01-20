@@ -20,6 +20,8 @@ This project is an Single Page Android TODO application built using Jetpack Comp
 **Architecture**
 The application follows the Clean Architecture approach, which divides the project into distinct layers, each with its own responsibility. This separation of concerns makes the codebase more modular, testable, and maintainable.
 
+Mock URL: https://app.beeceptor.com/console
+
 **Tech Stack**
 
 Kotlin: Programming language used for the entire project.
