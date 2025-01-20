@@ -1,11 +1,10 @@
-package com.vimalraj.todoapplication.multipleviewtype
+package com.vimalraj.todoapplication.multipleviewtype.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import com.vimalraj.todoapplication.multipleviewtype.view.MultiViewScreen
 import com.vimalraj.todoapplication.multipleviewtype.viewmodel.MultiTypeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

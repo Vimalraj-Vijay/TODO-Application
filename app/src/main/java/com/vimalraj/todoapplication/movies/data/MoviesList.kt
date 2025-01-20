@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
-import com.vimalraj.todoapplication.application.database.converters.ListConverter
+import com.vimalraj.todoapplication.application.database.ListConverter
 
 @Entity
 data class MoviesList(

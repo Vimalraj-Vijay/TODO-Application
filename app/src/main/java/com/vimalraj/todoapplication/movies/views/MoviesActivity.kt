@@ -1,4 +1,4 @@
-package com.vimalraj.todoapplication.movies
+package com.vimalraj.todoapplication.movies.views
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import com.vimalraj.todoapplication.movies.viewmodel.MovieListViewModel
-import com.vimalraj.todoapplication.movies.views.MovieListScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

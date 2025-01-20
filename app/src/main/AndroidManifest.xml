@@ -14,19 +14,14 @@
         android:theme="@style/Theme.TODOApplication"
         tools:targetApi="31">
         <activity
-            android:name=".multipleviewtype.MultipleViewTypeColumnActivity"
+            android:name=".multipleviewtype.view.MultipleViewTypeColumnActivity"
             android:exported="false"
             android:label="@string/title_activity_multiple_view_type_column"
             android:theme="@style/Theme.TODOApplication" />
         <activity
-            android:name=".movies.MoviesActivity"
+            android:name=".movies.views.MoviesActivity"
             android:exported="false"
             android:label="@string/title_activity_movies"
-            android:theme="@style/Theme.TODOApplication" />
-        <activity
-            android:name=".todo.TodosActivity"
-            android:exported="false"
-            android:label="@string/title_activity_todos"
             android:theme="@style/Theme.TODOApplication" />
         <activity
             android:name=".MainActivity"

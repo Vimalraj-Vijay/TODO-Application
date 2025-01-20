@@ -1,7 +1,7 @@
 package com.vimalraj.todoapplication.di
 
 import com.vimalraj.todoapplication.application.database.AppDatabase
-import com.vimalraj.todoapplication.movies.MovieApiClient
+import com.vimalraj.todoapplication.movies.api.MovieApiClient
 import com.vimalraj.todoapplication.movies.repository.remote.MoviesRepository
 import com.vimalraj.todoapplication.movies.repository.remote.MoviesRepositoryImpl
 import com.vimalraj.todoapplication.movies.usecase.MovieUseCase

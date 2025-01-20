@@ -1,5 +1,6 @@
 package com.vimalraj.todoapplication.multipleviewtype.view
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -16,6 +17,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -43,6 +45,7 @@ fun BillingRegularItem(features: Features) {
             modifier = Modifier
                 .fillMaxWidth()
         ) {
+            val context = LocalContext.current
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -75,7 +78,10 @@ fun BillingRegularItem(features: Features) {
             }
 
             Button(
-                onClick = {},
+                onClick = {
+                    Toast.makeText(context, getValueOrEmpty(features.buttonText), Toast.LENGTH_SHORT)
+                        .show()
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp)

@@ -3,8 +3,8 @@ package com.vimalraj.todoapplication.main
 import android.content.Context
 import android.content.Intent
 import com.vimalraj.todoapplication.MainActivity
-import com.vimalraj.todoapplication.movies.MoviesActivity
-import com.vimalraj.todoapplication.multipleviewtype.MultipleViewTypeColumnActivity
+import com.vimalraj.todoapplication.movies.views.MoviesActivity
+import com.vimalraj.todoapplication.multipleviewtype.view.MultipleViewTypeColumnActivity
 
 fun launchSelectedScreen(context: Context, route: NavItemType) {
     when (route) {

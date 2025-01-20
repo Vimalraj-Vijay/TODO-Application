@@ -3,7 +3,7 @@ package com.vimalraj.todoapplication.movies.repository.remote
 import com.vimalraj.network.ResultHandler
 import com.vimalraj.network.safeApiCall
 import com.vimalraj.todoapplication.application.database.AppDatabase
-import com.vimalraj.todoapplication.movies.MovieApiClient
+import com.vimalraj.todoapplication.movies.api.MovieApiClient
 import com.vimalraj.todoapplication.movies.data.MoviesList
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.vimalraj.todoapplication.movies
+package com.vimalraj.todoapplication.movies.api
 
 import com.vimalraj.todoapplication.movies.data.MoviesList
 import retrofit2.Response
