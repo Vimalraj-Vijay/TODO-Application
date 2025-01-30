@@ -24,4 +24,5 @@
     <string name="todo_drawer_title">Todo</string>
     <string name="movies_drawer_title">Movies</string>
     <string name="mutliple_view_drawer_title">Multiple View Type</string>
+    <string name="welcome">Welcome</string>
 </resources>

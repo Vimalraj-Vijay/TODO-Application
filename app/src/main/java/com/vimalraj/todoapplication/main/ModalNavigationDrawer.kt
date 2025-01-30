@@ -3,6 +3,7 @@ package com.vimalraj.todoapplication.main
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -33,7 +34,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vimalraj.todoapplication.R
 import com.vimalraj.todoapplication.movies.views.NewMoviesListView
@@ -129,6 +132,12 @@ fun NavigationDrawer() {
                 drawerContainerColor = colorResource(R.color.white)
             ) {
                 Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = stringResource(R.string.welcome),
+                    modifier = Modifier.padding(16.dp),
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
                 getMainNavigationItems().forEachIndexed { index, mainNavigationItems ->
                     NavigationDrawerItem(
                         modifier = Modifier.padding(horizontal = 8.dp),
@@ -149,6 +158,8 @@ fun NavigationDrawer() {
                         selected = index == selectedItemIndex,
                         icon = {
                             Icon(
+                                modifier = Modifier.size(26.dp),
+                                tint = colorResource(R.color.red30),
                                 imageVector = ImageVector.vectorResource(mainNavigationItems.icon),
                                 contentDescription = ""
                             )
