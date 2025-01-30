@@ -27,6 +27,7 @@ class MovieListViewModel @Inject constructor(
                 is ResultHandler.Error -> {
                     handleError(result.remoteApiError)
                 }
+
                 is ResultHandler.AccessDenied -> {
                     // Do nothing
                 }

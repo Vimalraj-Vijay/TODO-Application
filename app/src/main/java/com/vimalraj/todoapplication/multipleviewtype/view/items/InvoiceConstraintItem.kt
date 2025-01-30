@@ -1,4 +1,4 @@
-package com.vimalraj.todoapplication.multipleviewtype.view
+package com.vimalraj.todoapplication.multipleviewtype.view.items
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.vimalraj.todoapplication.R
 import com.vimalraj.todoapplication.multipleviewtype.data.Features
+import com.vimalraj.todoapplication.multipleviewtype.view.getValueOrEmpty
 import com.vimalraj.todoapplication.multipleviewtype.viewmodel.IconType
 import com.vimalraj.todoapplication.multipleviewtype.viewmodel.ViewType
 

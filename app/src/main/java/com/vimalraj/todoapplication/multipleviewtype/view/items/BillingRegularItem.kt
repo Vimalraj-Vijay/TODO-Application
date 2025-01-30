@@ -1,6 +1,6 @@
-package com.vimalraj.todoapplication.multipleviewtype.view
+package com.vimalraj.todoapplication.multipleviewtype.view.items
 
-import androidx.compose.foundation.BorderStroke
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -18,6 +17,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -27,11 +27,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vimalraj.todoapplication.R
 import com.vimalraj.todoapplication.multipleviewtype.data.Features
+import com.vimalraj.todoapplication.multipleviewtype.view.getValueOrEmpty
 import com.vimalraj.todoapplication.multipleviewtype.viewmodel.IconType
 import com.vimalraj.todoapplication.multipleviewtype.viewmodel.ViewType
 
 @Composable
-fun ClaimsRegularItem(features: Features) {
+fun BillingRegularItem(features: Features) {
 
     Card(
         modifier = Modifier
@@ -45,15 +46,21 @@ fun ClaimsRegularItem(features: Features) {
             modifier = Modifier
                 .fillMaxWidth()
         ) {
+            val context = LocalContext.current
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(all = 16.dp),
             ) {
-                Column(
+                val iconType = IconType.valueOf(features.iconId?.name ?: "")
+                Image(
                     modifier = Modifier
-                        .padding(horizontal = 8.dp)
-                        .weight(0.5f)
+                        .padding(2.dp),
+                    painter = painterResource(iconType.icon),
+                    contentDescription = iconType.contentDescription,
+                )
+                Column(
+                    modifier = Modifier.padding(horizontal = 8.dp)
                 ) {
                     Text(
                         modifier = Modifier.padding(all = 4.dp),
@@ -69,28 +76,24 @@ fun ClaimsRegularItem(features: Features) {
                         fontWeight = FontWeight.Normal
                     )
                 }
-
-                val iconType = IconType.valueOf(features.iconId?.name ?: "")
-                Image(
-                    modifier = Modifier
-                        .padding(2.dp)
-                        .size(80.dp),
-                    painter = painterResource(iconType.icon),
-                    contentDescription = iconType.contentDescription,
-                )
             }
 
             Button(
-                onClick = {},
-                shape = RoundedCornerShape(23.dp),
-                border = BorderStroke(2.dp, color = colorResource(R.color.dark_blue)),
+                onClick = {
+                    Toast.makeText(
+                        context,
+                        getValueOrEmpty(features.buttonText),
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp)
                     .padding(bottom = 16.dp),
                 colors = ButtonDefaults.buttonColors(
                     contentColor = colorResource(R.color.white),
-                    containerColor = colorResource(R.color.fade_dark_blue)
+                    containerColor = colorResource(R.color.red30)
                 ),
             ) {
                 Text(
@@ -104,23 +107,21 @@ fun ClaimsRegularItem(features: Features) {
 
 }
 
-
 @Preview(showBackground = true)
 @Composable
-fun PreviewClaims() {
+fun PreviewBilling() {
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(color = colorResource(R.color.grey))
     ) {
-        ClaimsRegularItem(
+        BillingRegularItem(
             features = Features(
                 featureId = "BILLING",
-                iconId = IconType.SUBMIT_A_CLAIM,
                 title = "Effortless Bill Management",
                 description = "Quickly access and review your bills in one place. Make payments securely and conveniently with just a few clicks.",
-                viewType = ViewType.CLAIM_REGULAR,
+                viewType = ViewType.BILLING_REGULAR,
                 buttonText = "View and Pay bills",
             )
         )
