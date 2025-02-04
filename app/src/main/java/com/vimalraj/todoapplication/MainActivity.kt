@@ -22,16 +22,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.work.Constraints
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.vimalraj.todoapplication.main.NavigationDrawer
+import com.vimalraj.todoapplication.main.SyncDataWorker
 import com.vimalraj.todoapplication.ui.theme.TODOApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private lateinit var workManager: WorkManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            workManager = WorkManager.getInstance(applicationContext)
+            setOneTimeWorkRequest()
             TODOApplicationTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -42,7 +52,36 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    override fun onStop() {
+        super.onStop()
+        workManager.cancelAllWork()
+    }
+
+    private fun setOneTimeWorkRequest() {
+        val constraints = Constraints.Builder()
+            .build()
+        /*val syncDataWorker = OneTimeWorkRequestBuilder<SyncDataWorker>()
+            .setConstraints(constraints)
+            .build()*/
+
+        val syncDataWorker =
+            PeriodicWorkRequestBuilder<SyncDataWorker>(
+                repeatInterval = 15, TimeUnit.MINUTES,
+            )
+                .setConstraints(
+                    constraints
+                ).build()
+
+        val workManager = WorkManager.getInstance(applicationContext)
+
+
+        workManager.enqueue(syncDataWorker)
+
+
+    }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
