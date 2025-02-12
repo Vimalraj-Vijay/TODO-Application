@@ -35,6 +35,13 @@ fun getMainNavigationItems(): List<MainNavigationItems> {
             isSelected = false,
             route = NavItemType.MULTI_TYPE_VIEWS
         ),
+
+        MainNavigationItems(
+            title = R.string.learn_title,
+            icon = R.drawable.ic_learn,
+            isSelected = false,
+            route = NavItemType.LEARN
+        ),
     )
 }
 

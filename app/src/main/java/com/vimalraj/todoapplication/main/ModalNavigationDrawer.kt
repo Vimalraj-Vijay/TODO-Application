@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vimalraj.todoapplication.R
+import com.vimalraj.todoapplication.learning.view.NewLearnView
 import com.vimalraj.todoapplication.movies.views.NewMoviesListView
 import com.vimalraj.todoapplication.multipleviewtype.view.NewMultiViewTypeView
 import com.vimalraj.todoapplication.todo.viewmodel.TodoViewModel
@@ -124,6 +125,7 @@ fun NavigationDrawer() {
 
                     NavItemType.MOVIES -> NewMoviesListView(innerPaddingValues = innerPadding)
                     NavItemType.MULTI_TYPE_VIEWS -> NewMultiViewTypeView(innerPaddingValues = innerPadding)
+                    NavItemType.LEARN -> NewLearnView(innerPaddingValues = innerPadding)
                 }
             }
         },

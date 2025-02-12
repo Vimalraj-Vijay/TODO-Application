@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             workManager = WorkManager.getInstance(applicationContext)
-            setOneTimeWorkRequest()
+            //setOneTimeWorkRequest()
             TODOApplicationTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -55,6 +55,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onStop() {
         super.onStop()
+        println("onStop")
         workManager.cancelAllWork()
     }
 

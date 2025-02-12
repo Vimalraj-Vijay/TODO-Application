@@ -6,6 +6,8 @@ enum class NavItemType {
 
     MOVIES,
 
-    MULTI_TYPE_VIEWS
+    MULTI_TYPE_VIEWS,
+
+    LEARN
 
 }

@@ -1,6 +1,11 @@
 package com.vimalraj.todoapplication.di
 
 import com.vimalraj.todoapplication.application.database.AppDatabase
+import com.vimalraj.todoapplication.learning.api.LearningAPIClient
+import com.vimalraj.todoapplication.learning.repository.LearnRepository
+import com.vimalraj.todoapplication.learning.repository.LearnRepositoryImpl
+import com.vimalraj.todoapplication.learning.usecase.LearnUseCase
+import com.vimalraj.todoapplication.learning.usecase.LearnUseCaseImpl
 import com.vimalraj.todoapplication.movies.api.MovieApiClient
 import com.vimalraj.todoapplication.movies.repository.remote.MoviesRepository
 import com.vimalraj.todoapplication.movies.repository.remote.MoviesRepositoryImpl
@@ -55,6 +60,14 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun providesLearnRepository(
+        learningAPIClient: LearningAPIClient
+    ): LearnRepository {
+        return LearnRepositoryImpl(learningAPIClient)
+    }
+
+    @Singleton
+    @Provides
     fun providesMovieApiClient(retrofit: Retrofit): MovieApiClient {
         return retrofit.create(MovieApiClient::class.java)
     }
@@ -63,6 +76,12 @@ object AppModule {
     @Provides
     fun providesMultiTypeClient(retrofit: Retrofit): MultiViewClient {
         return retrofit.create(MultiViewClient::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providesLearningAPIClient(retrofit: Retrofit): LearningAPIClient {
+        return retrofit.create(LearningAPIClient::class.java)
     }
 
     @Singleton
@@ -86,6 +105,14 @@ object AppModule {
     fun providesMultiViewUseCase(multiViewRepository: MultiViewRepository): MultiViewUseCase {
         return MultiViewUseCaseImpl(
             multiViewRepository = multiViewRepository
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun providesLearnUseCase(learnRepository: LearnRepository): LearnUseCase {
+        return LearnUseCaseImpl(
+            learnRepository = learnRepository
         )
     }
 }
