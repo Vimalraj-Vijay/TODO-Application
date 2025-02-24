@@ -1,5 +1,9 @@
 **TODO Application**
 
+Mock URL: https://app.beeceptor.com/console
+Icons: https://iconscout.com/icons/learn-more?price=free
+Jitpack Build repo: https://jitpack.io/#Vimalraj-Vijay
+
 **Overview**
 
 This project is an Single Page Android TODO application built using Jetpack Compose for the UI and Clean Architecture principles for structuring the codebase. The application allows users to manage their tasks efficiently with features such as adding, updating, deleting, and viewing tasks.
@@ -20,7 +24,6 @@ This project is an Single Page Android TODO application built using Jetpack Comp
 **Architecture**
 The application follows the Clean Architecture approach, which divides the project into distinct layers, each with its own responsibility. This separation of concerns makes the codebase more modular, testable, and maintainable.
 
-Mock URL: https://app.beeceptor.com/console
 
 **Tech Stack**
 
